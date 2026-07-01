@@ -178,7 +178,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sa
   .q-bar{grid-column:1 / -1;grid-row:2;}
   .q-price{text-align:right;}
 }
-@media print{#app-shell{display:none!important;}.preview-toolbar{display:none!important;}body{background:#fff;}#quote-output{padding:0;}.q-bar{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#e8e8e8!important;}.q-fill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.q-section{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.q-sec-body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.q-sec-label::before{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.q-sec-total{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+@page{size:A4 portrait;margin:12mm 14mm;}
+@media print{
+  html,body{width:210mm;background:#fff!important;margin:0!important;padding:0!important;}
+  #app-shell{display:none!important;}
+  .preview-toolbar{display:none!important;}
+  #preview-screen{display:block!important;}
+  #quote-output{max-width:none!important;width:182mm!important;margin:0 auto!important;padding:0!important;min-height:0!important;box-shadow:none!important;border-radius:0!important;}
+  .q-section{break-inside:avoid;page-break-inside:avoid;}
+  .q-row,.q-row-main{break-inside:avoid;page-break-inside:avoid;}
+  .q-bar{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#e8e8e8!important;}
+  .q-fill{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .q-section{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .q-sec-body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .q-sec-label::before{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .q-sec-total{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
 
 
 /* ===== 입력 생성기: 엑셀형 실무 UI ===== */
