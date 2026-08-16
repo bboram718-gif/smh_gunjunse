@@ -683,15 +683,23 @@ function applyWorkbook(wb) {
 
   // ---- 항목 ----
   const itemRows = XLSX.utils.sheet_to_json(itemSheet, { header: 1, defval: '' });
+  const header = (itemRows[0] || []).map(h => (h == null ? '' : h).toString().trim());
+  const colOf = kw => header.findIndex(h => h.indexOf(kw) !== -1);
+  let iSec = colOf('섹션'), iName = colOf('항목명'), iAmt = colOf('금액'), iDesc = colOf('설명');
+  if (iSec < 0) iSec = 0;
+  if (iName < 0) iName = 1;
+  if (iAmt < 0) iAmt = 2;                       // 구버전 템플릿(금액=3번째 열) 호환
+  if (iDesc < 0) iDesc = Math.max(iAmt + 1, header.length - 1);
+  // 수량·단가 열은 견적서에 노출하지 않으므로 무시하고 '금액'만 사용
   const sections = [];
   let cur = '';
   let count = 0;
   for (let i = 1; i < itemRows.length; i++) {
     const row = itemRows[i];
-    const sec = (row[0] == null ? '' : row[0]).toString().trim();
-    const name = (row[1] == null ? '' : row[1]).toString().trim();
-    const price = row[2];
-    const desc = (row[3] == null ? '' : row[3]).toString().trim();
+    const sec = (row[iSec] == null ? '' : row[iSec]).toString().trim();
+    const name = (row[iName] == null ? '' : row[iName]).toString().trim();
+    const price = row[iAmt];
+    const desc = (row[iDesc] == null ? '' : row[iDesc]).toString().trim();
     if (sec) cur = sec;
     if (!name) continue;
     const secName = cur || '섹션';
